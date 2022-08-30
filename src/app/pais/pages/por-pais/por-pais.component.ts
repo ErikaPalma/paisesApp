@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Pais } from '../../interfaces/paises-interface';
 import { PaisService } from '../../services/pais.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { PaisService } from '../../services/pais.service';
 export class PorPaisComponent implements OnInit {
   termino: string = '';
   isError: boolean = false;
+  paises: Pais[] = [];
 
   constructor(private paisService: PaisService) {}
 
@@ -18,11 +20,13 @@ export class PorPaisComponent implements OnInit {
   buscar(): void {
     this.isError = false;
     this.paisService.buscarPais(this.termino).subscribe(
-      (resp) => {
-        console.log(resp);
+      (paises) => {
+        // El array de paises será igual a los paises que recibe como argumento
+        this.paises = paises;
       },
       (err) => {
         this.isError = true;
+        this.paises = [];
       }
     );
   }
