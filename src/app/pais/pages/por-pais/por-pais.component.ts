@@ -12,6 +12,7 @@ export class PorPaisComponent implements OnInit {
   termino: string = '';
   isError: boolean = false;
   paises: Pais[] = [];
+  paisesSugeridos: Pais[] = [];
 
   constructor(private paisService: PaisService) {}
 
@@ -34,5 +35,9 @@ export class PorPaisComponent implements OnInit {
 
   sugerencias(termino: string) {
     this.isError = false;
+    this.paisService.buscarPais(termino).subscribe(
+      (paises) => (this.paisesSugeridos = paises.slice(0, 5)),
+      (err) => (this.paisesSugeridos = [])
+    );
   }
 }

@@ -27,4 +27,10 @@ export class PaisService {
     `;
     return this.http.get<Pais[]>(urlDetalle);
   }
+
+  buscarRegion(region: string): Observable<Pais[]> {
+    const urlRegion = `https://restcountries.com/v2/regionalbloc/${region}
+    `;
+    return this.http.get<Pais[]>(urlRegion);
+  }
 }
